@@ -4,9 +4,7 @@
   "description": "A Telegram bot that listens to messages and answers questions using the Gemini API.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "vite",
-    "vercel-deploy": "npm install && node index.js"
+    "start": "node index.js"
   },
   "keywords": [
     "telegram",
@@ -19,8 +17,5 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "telegraf": "^4.16.3"
-  },
-  "devDependencies": {
-    "vite": "^5.2.0"
   }
 }
