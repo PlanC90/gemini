@@ -32,7 +32,17 @@ bot.on('message', async (ctx) => {
     } else {
       ctx.reply('Please provide a question after mentioning Memex or tagging me.');
     }
-  }
+  } else if (ctx.message.text) {
+        try {
+          console.log('Question received:', ctx.message.text);
+          const geminiResponse = await askGemini(ctx.message.text);
+          console.log('Gemini response:', geminiResponse);
+          ctx.reply(geminiResponse);
+        } catch (error) {
+          console.error('Error communicating with Gemini:', error);
+          ctx.reply('Sorry, I encountered an error while processing your request.');
+        }
+      }
 });
 
 async function askGemini(question) {
