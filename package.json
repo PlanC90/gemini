@@ -1,0 +1,26 @@
+{
+  "name": "memex-gemini-bot",
+  "version": "1.0.0",
+  "description": "A Telegram bot that listens to messages and answers questions using the Gemini API.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "vite",
+    "vercel-deploy": "npm install && node index.js"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "gemini",
+    "ai"
+  ],
+  "author": "Bolt",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "telegraf": "^4.16.3"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}
