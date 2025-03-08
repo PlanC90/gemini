@@ -21,7 +21,9 @@ bot.on('message', async (ctx) => {
 
     if (question) {
       try {
+        console.log('Question received:', question);
         const geminiResponse = await askGemini(question);
+        console.log('Gemini response:', geminiResponse);
         ctx.reply(geminiResponse);
       } catch (error) {
         console.error('Error communicating with Gemini:', error);
@@ -41,23 +43,29 @@ async function askGemini(question) {
     }]
   };
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-  const json = await response.json();
-  if (json.candidates && json.candidates.length > 0 && json.candidates[0].content && json.candidates[0].content.parts && json.candidates[0].content.parts.length > 0) {
-    return json.candidates[0].content.parts[0].text;
-  } else {
-    return 'Gemini could not provide an answer for this question.';
+    const json = await response.json();
+    console.log('Gemini API response:', json);
+    if (json.candidates && json.candidates.length > 0 && json.candidates[0].content && json.candidates[0].content.parts && json.candidates[0].content.parts.length > 0) {
+      return json.candidates[0].content.parts[0].text;
+    } else {
+      return 'Gemini could not provide an answer for this question.';
+    }
+  } catch (error) {
+    console.error('Error in askGemini:', error);
+    throw error;
   }
 }
 
